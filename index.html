@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Wordle Solver">
+  <title>Wordle Solver</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1>Wordle Solver</h1>
+        <p class="subtitle">Fast, local, no ads. Your word list stays on your device.</p>
+      </div>
+      <button id="resetBtn" class="secondary compact" type="button">Reset</button>
+    </header>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <h2>Word list</h2>
+          <p id="wordListStatus" class="muted">Loading…</p>
+        </div>
+        <label class="file-button">
+          Import .txt
+          <input id="wordFileInput" type="file" accept=".txt,text/plain">
+        </label>
+      </div>
+      <p class="tiny">
+        One 5-letter word per line. Imported lists are saved locally in this browser.
+      </p>
+    </section>
+
+    <section class="card" id="starterCard">
+      <div class="section-head">
+        <div>
+          <h2>Recommended starters</h2>
+          <p class="muted">Calculated from your loaded word list.</p>
+        </div>
+      </div>
+      <div id="starterList" class="recommendations">
+        <div class="loading">Calculating…</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Add a guess</h2>
+
+      <label class="input-label" for="guessInput">Guess</label>
+      <input
+        id="guessInput"
+        class="guess-input"
+        type="text"
+        maxlength="5"
+        inputmode="text"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        placeholder="MOURN"
+      >
+
+      <p class="muted feedback-help">Tap each square to cycle: gray → yellow → green.</p>
+
+      <div id="feedbackRow" class="feedback-row" aria-label="Wordle result">
+        <button class="tile gray" data-index="0" type="button">B</button>
+        <button class="tile gray" data-index="1" type="button">B</button>
+        <button class="tile gray" data-index="2" type="button">B</button>
+        <button class="tile gray" data-index="3" type="button">B</button>
+        <button class="tile gray" data-index="4" type="button">B</button>
+      </div>
+
+      <div class="button-row">
+        <button id="addGuessBtn" class="primary" type="button">Add guess</button>
+        <button id="undoBtn" class="secondary" type="button" disabled>Undo</button>
+      </div>
+
+      <div id="history" class="history"></div>
+      <p id="message" class="message" role="status"></p>
+    </section>
+
+    <section class="card results-card">
+      <div class="section-head">
+        <div>
+          <h2>Solver</h2>
+          <p id="remainingCount" class="remaining-count">—</p>
+        </div>
+        <span id="rankingMode" class="badge">Ready</span>
+      </div>
+
+      <h3>Best next guesses</h3>
+      <div id="recommendationList" class="recommendations">
+        <p class="muted">Enter a guess to begin.</p>
+      </div>
+
+      <h3>Possible answers</h3>
+      <ol id="answerList" class="answer-list"></ol>
+    </section>
+
+    <footer>
+      <p>Runs entirely in your browser. No server required.</p>
+    </footer>
+  </main>
+
+  <script src="solver.js"></script>
+</body>
+</html>
